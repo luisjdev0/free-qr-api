@@ -1,11 +1,11 @@
 MODOS QR APP:
-- URL
-- vCard
-- MeCard
-- Plain
-- Tel
-- vCalendar
-- Wi-Fi
+- URL --
+- vCard --
+- MeCard --
+- Plain --
+- Tel --
+- vCalendar --
+- Wi-Fi --
 - Geo
 - Mailto
 - SMS

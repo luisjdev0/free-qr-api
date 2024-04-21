@@ -15,7 +15,7 @@ export const getQR = async (req : Request, res : Response) => {
     const validator = Joi.object({
         size : Joi.number().default(300).max(1200).min(100).integer(),
         data : Joi.string().required(),
-        shape: Joi.string().valid('dot', 'square').default('square'),
+        shape: Joi.string().valid('dots', 'rounded', 'square').default('square'),
         color: colorPattern,
     })
 
@@ -37,18 +37,8 @@ export const getQR = async (req : Request, res : Response) => {
         height: size,
         data: data.value.data,
 
-        cornersDotOptions:{
-            type: 'square',
-            color: data.value.color,
-        },
-
-        cornersSquareOptions:{
-            type: data.value.shape == 'dot' ? 'extra-rounded' : 'square',
-            color: data.value.color
-        },
-
         dotsOptions: {
-            type: data.value.shape == 'dot' ? 'rounded' : 'square',
+            type: data.value.shape,
             color: data.value.color
         }
     })
