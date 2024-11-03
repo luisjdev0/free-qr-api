@@ -26,44 +26,47 @@ Authorization: Bearer <AUTH_SECRET_TOKEN>
 
 A continuación, se listarán los endpoints disponibles en el API:
 
-Obtiene información referente a los libros, autores y géneros cargados:
+Crear código QR sencillo y sin autenticación:
+
 ```http
-GET /v2/stats/
+GET /
 ```
 
-Obtiene los libros agregados el día actual:
-```http
-GET /v2/today
-```
+Parámetros de query:
 
-Obtener los libros por página:
-```http
-GET /v2/page/<PAGE>
-```
+* ```data``` Requerido, información que contendrá el código QR.
+* ```size``` Opcional, resolución del QR, mínimo ```100px```, máximo ```1200px```, por defecto ```300px```.
+* ```shape``` Opcional, estilo del QR, opciones disponibles: ```dots```, ```rounded``` y ```square```, por defecto ```square```.
+* ```color``` Opcional, color sólido del QR, en hexadecimal, por defecto es ```#000000``` 
 
-Obtener todos los autores registrados o buscar uno:
-```http
-GET /v2/tags/
-GET /v2/tags/<TAG>
-```
+Crear código QR personalizado con autenticación, en el body, el único parámetro obligatorio es ```data```, los demás son opcionales:
 
-Obtener los géneros de los libros registrados o buscar uno:
 ```http
-GET /v2/genres/
-GET /v2/authors/<AUTHOR>
-```
+POST /
 
-Búsquedas:
-    
-- Por coincidencia:
-    ```http
-    GET /v2/search/<PARAM>
-    ```
-- Por autor:
-    ```http
-    GET /v2/search/author/<AUTHOR>
-    ```
-- Por Categoría:
-    ```http
-    GET /v2/search/genres/<GENRE>
-    ```
+{
+    "data" : "https://web.whatsapp.com/",
+    "size" : 300,
+    "image" : "https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png",
+    "backgroundOptions" : {
+        "color" : "#FFFFFF"
+    },
+    "dotsOptions" : {
+        "type": "extra-rounded",
+        "gradient" : {
+            "type" : "linear",
+            "rotation" : 45,
+            "colorStops" : [
+                { "color" : "#58d364", "offset" : 0 },
+                { "color" : "#22b33a", "offset" : 1 }
+            ]
+        }
+    }
+}
+
+```
+Para más información sobre las variantes disponibles en las consultas, visitar [kozakdenys/qr-code-styling](https://github.com/KilianB/styled-qr-code)
+
+La petición retornará la siguiente salida:
+
+![Resultado de código QR](https://imgur.com/SdOAUPN.png)
